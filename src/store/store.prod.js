@@ -1,10 +1,16 @@
 import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from 'sagas'
+
 import rootReducer from 'reducers'
 
-const middlewares = [ReduxThunk]
+const sagaMiddleware = createSagaMiddleware()
+const middlewares = [ReduxThunk, sagaMiddleware]
 const enhancer = [applyMiddleware(...middlewares)]
 
 export default function configureStore(initialState = {}) {
-  return createStore(rootReducer, initialState, ...enhancer)
+  const store = createStore(rootReducer, initialState, ...enhancer)
+  sagaMiddleware.run(rootSaga)
+  return store
 }
