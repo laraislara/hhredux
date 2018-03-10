@@ -1,1 +1,1 @@
-export { default as fetchMetroData } from './hhAPI'
+export { fetchMetroData, fetchVacancyData } from './hhAPI'

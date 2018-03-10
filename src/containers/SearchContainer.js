@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Search } from 'components'
+import { Search, VacanciesTable } from 'components'
 import { createStructuredSelector, createSelector } from 'reselect'
 
 import { bindActionCreators } from 'redux'
@@ -9,22 +9,36 @@ import * as SearchActions from 'actions/search'
 
 class SearchContainer extends React.Component {
   static propTypes = {
-    // vacancyName: PropTypes.string.isRequired,
-    metroLineName: PropTypes.string.isRequired,
+    vacancyName: PropTypes.string.isRequired,
     metroStationName: PropTypes.string.isRequired,
+    selectedLine: PropTypes.objectOf(PropTypes.string).isRequired,
+    metroStations: PropTypes.objectOf(PropTypes.PropTypes.any).isRequired,
+    vacancies: PropTypes.objectOf(PropTypes.any).isRequired,
     changeMetroLine: PropTypes.func.isRequired,
     changeMetroStation: PropTypes.func.isRequired,
-    // handleSearchSubmit: PropTypes.func.isRequired,
+    fetchMetroStations: PropTypes.func.isRequired,
+    fetchVacancies: PropTypes.func.isRequired,
   }
-  changeMetroLine = (event) => {
-    this.props.changeMetroLine(event.target.value)
+
+  componentWillMount = () => {
+    this.props.fetchMetroStations()
   }
-  changeMetroStation = (event) => {
+  changeMetroLine = event => {
+    // metroStations.data --> linesMap[id]
+    const metroLine = this.props.metroStations.data[event.target.value]
+    this.props.changeMetroLine(metroLine)
+
+  }
+  changeMetroStation = event => {
     this.props.changeMetroStation(event.target.value)
   }
-  handleSearchSubmit = (event, value) => {
-    event.preventDefault()
-    this.props.handleSearchSubmit(value, this.props.metroLineName, this.props.metroStationName)
+  handleSearchSubmit = (value) => {
+    // агрументы пойдут в action.payload
+    this.props.fetchVacancies({
+      vacancyName: value,
+      line: this.props.selectedLine,
+      station: this.props.metroStationName,
+    })
   }
 
   render() {
@@ -32,13 +46,16 @@ class SearchContainer extends React.Component {
       <div>
       <Search
         vacancyName={this.props.vacancyName}
-        metroLineName={this.props.metroLineName}
+        metroStations={this.props.metroStations}
         metroStationName={this.props.metroStationName}
+        selectedLine={this.props.selectedLine}
         changeMetroLine={this.changeMetroLine}
         changeMetroStation={this.changeMetroStation}
         onSearchSubmit={this.handleSearchSubmit}
       />
-        <p>Вы выбрали {this.props.metroLineName} {this.props.metroStationName}</p>
+      <VacanciesTable
+        vacancies={this.props.vacancies}
+      />
       </div>
     )
   }
@@ -49,13 +66,21 @@ const mapStateToProps = createStructuredSelector({
     (state) => state.vacancyName,
     (vacancyNameState) => vacancyNameState
   ),
-   metroLineName: createSelector(
-    (state) => state.metroLineName,
-    (metroLineNameState) => metroLineNameState
+   selectedLine: createSelector(
+    (state) => state.selectedLine,
+    (selectedLineState) => selectedLineState
   ),
    metroStationName: createSelector(
     (state) => state.metroStationName,
     (metroStationNameState) => metroStationNameState
+  ),
+  metroStations: createSelector(
+    (state) => state.metroStations,
+    (metroStationsState) => metroStationsState,
+  ),
+  vacancies: createSelector(
+    (state) => state.vacancies,
+    (vacanciesState) => vacanciesState,
   ),
 })
 

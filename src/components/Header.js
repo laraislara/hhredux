@@ -24,10 +24,10 @@ const TopBar = styled.div`
 `
 
 const Header = () => (
-  <TopBar>
+  {/*<TopBar>
     <img src={logo} className="redux-logo" alt="logo" />
     <h2>YO</h2>
-  </TopBar>
+  </TopBar>*/}
 )
 
 export default Header

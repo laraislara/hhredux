@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
+import { Select } from 'components'
 
 // import styled from 'styled-components'
 
@@ -8,49 +9,53 @@ import pure from 'recompose/pure'
 
 class Search extends React.Component {
   static propTypes = {
-    metroLineName: PropTypes.string.isRequired,
     metroStationName: PropTypes.string.isRequired,
+    selectedLine: PropTypes.objectOf(PropTypes.string).isRequired,
+    metroStations: PropTypes.objectOf(PropTypes.any).isRequired,
     changeMetroLine: PropTypes.func.isRequired,
     onSearchSubmit: PropTypes.func.isRequired,
     changeMetroStation: PropTypes.func.isRequired,
   }
 
   onSearchSubmit = event => {
+    event.preventDefault()
     const {value} = this.searchValue
-    this.props.onSearchSubmit(event, value)
+    this.props.onSearchSubmit(value)
   }
 
   render () {
     const {
-      metroLineName,
+      selectedLine,
       metroStationName,
+      metroStations,
       changeMetroLine,
       changeMetroStation,
-      onSearchSubmit,
     } = this.props
     return (
       <section>
-        <form onSubmit={onSearchSubmit}>
-          <select onChange={changeMetroLine} value={metroLineName}>
-            <option>Выберите ветку</option>
-            <option value='1'>Калужско-Рижская</option>
-            <option value='2'>Сокольническая</option>
-            <option value='3'>Замоскворецкая</option>
-          </select>
-          <select onChange={changeMetroStation}
-                  value={metroStationName}>
-            <option>Выберите станцию</option>
-            <option value='1'>Беляево</option>
-            <option value='2'>Коньково</option>
-            <option value='3'>Теплый Стан</option>
-          </select>
+        <form onSubmit={this.onSearchSubmit}>
+          {metroStations.isLoaded &&
+            <Select onChange={changeMetroLine}
+                    value={selectedLine.id}
+                    options={Object.values(metroStations.data).map(el => ({
+                      id: el.id,
+                      name: el.name,
+                      color: el.hex_color,
+                    }))}/>
+          }
+          {selectedLine.id && <Select onChange={changeMetroStation}
+                  value={metroStationName}
+                  options={metroStations.data[selectedLine.id].stations.map(el => ({
+                    id: el.id,
+                    name: el.name,
+                  }))}
+          />}
           <input ref={(input) => {this.searchValue = input}}/>
-          <button>Поиск</button>
+          <button type='submit'>Поиск</button>
         </form>
       </section>
     )
   }
 }
-
 
 export default pure(Search)
