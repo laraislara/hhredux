@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 // import { throttle } from 'lodash'
 import { createStructuredSelector, createSelector } from 'reselect'
 
-import { YMaps, Map, ObjectManager, Button } from 'react-yandex-maps';
+import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -17,6 +17,8 @@ export class YMapContainer extends React.Component {
     ymap: PropTypes.objectOf(PropTypes.any).isRequired,
     fetchVacancies: PropTypes.func.isRequired,
     changeMapState: PropTypes.func.isRequired,
+    metroStationValue: PropTypes.string.isRequired,
+    selectedLine: PropTypes.objectOf(PropTypes.any).isRequired,
   }
 
   /* YAMP events
@@ -50,16 +52,10 @@ export class YMapContainer extends React.Component {
           height={500}
           onBoundsChange={this.onLoadMap}
         >
-        <Button
-          data={
-            { content: `Количество ваканский на карте ${this.props.ymap.count}`}
-          }
-          options={{ float: 'right', maxWidth: '100%' }}
-        />
         <ObjectManager
           options={{
-            clusterize: false,
-            gridSize: 0,
+            clusterize: true,
+            gridSize: 32,
           }}
           objects={{
             preset: 'islands#blueDotIcon',
@@ -91,14 +87,6 @@ const mapStateToProps = createStructuredSelector({
    metroStationValue: createSelector(
     (state) => state.metroStationValue,
     (metroStationValueState) => metroStationValueState
-  ),
-  vacanciesWithAdrress: createSelector(
-    (state) => Object.values(state.vacancies.data).length > 0
-      ? Object.values(state.vacancies.data).filter(el => (
-      el.address && el.address.lat && el.address.lng
-      ))
-      : [],
-    (vacanciesWithAdrressState) => vacanciesWithAdrressState
   ),
   ymap: createSelector(
     (state) => (
