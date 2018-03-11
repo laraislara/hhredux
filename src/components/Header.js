@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import logo from 'assets/logo.svg'
 import styled, { keyframes } from 'styled-components'
 
@@ -12,22 +13,23 @@ const rotate360 = keyframes`
 `
 
 const TopBar = styled.div`
-  background-color: #222;
-  height: 150px;
+  height: 45px;
   padding: 20px;
   color: #fff;
 
   .redux-logo {
     animation: ${rotate360} infinite 20s linear;
-    height: 80px;
+    height: 12px;
   }
 `
 
 const Header = () => (
-  {/*<TopBar>
+  <TopBar>
     <img src={logo} className="redux-logo" alt="logo" />
-    <h2>YO</h2>
-  </TopBar>*/}
+    <Link to="/">Главная</Link>
+    <Link to="/map">Карта</Link>
+    <Link to="/vacancies">Вакансии</Link>
+  </TopBar>
 )
 
 export default Header

@@ -7,6 +7,7 @@ import {
   initialSelectedMetroLine,
   initialMetroStations,
   initialVacancies,
+  initialMapState,
 } from 'initialStates'
 import 'styles/global-styles'
 import registerServiceWorker from 'utils/registerServiceWorker'
@@ -15,6 +16,7 @@ const store = configureStore({
   selectedLine: initialSelectedMetroLine,
   metroStations: initialMetroStations,
   vacancies: initialVacancies,
+  mapState: initialMapState,
 })
 
 render(

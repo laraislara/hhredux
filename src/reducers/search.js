@@ -20,8 +20,8 @@ export const metroStationValue = (state = initialMetroStationValue, action) => {
   switch (action.type) {
     case CHANGE_METRO_STATION:
       return action.payload
-    case METRO_FETCH_SUCCEEDED:
-      return action.payload['1'].stations[0].id
+    // case METRO_FETCH_SUCCEEDED:
+    //   return action.payload['1'].stations[0].id
     default:
       return state
   }
@@ -68,6 +68,8 @@ export const vacancyName = (state = initialVacancyName, action) => {
 
 export const vacancies = (state = initialVacancies, action) => {
   switch (action.type) {
+    // case VACANCIES_FETCH_REQUESTED:
+    //   return Object.assign({}, state, {isLoaded: false})
     case VACANCIES_FETCH_SUCCEEDED:
       return {
         data: action.payload.data,

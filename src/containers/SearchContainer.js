@@ -7,12 +7,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as SearchActions from 'actions/search'
 
-class SearchContainer extends React.Component {
+export class SearchContainer extends React.Component {
   static propTypes = {
     vacancyName: PropTypes.string.isRequired,
     metroStationValue: PropTypes.string.isRequired,
-    selectedLine: PropTypes.objectOf(PropTypes.string).isRequired,
-    metroStations: PropTypes.objectOf(PropTypes.PropTypes.any).isRequired,
+    selectedLine: PropTypes.objectOf(PropTypes.any).isRequired,
+    metroStations: PropTypes.objectOf(PropTypes.any).isRequired,
     vacancies: PropTypes.objectOf(PropTypes.any).isRequired,
     changeMetroLine: PropTypes.func.isRequired,
     changeMetroStation: PropTypes.func.isRequired,
@@ -52,9 +52,6 @@ class SearchContainer extends React.Component {
         changeMetroLine={this.changeMetroLine}
         changeMetroStation={this.changeMetroStation}
         onSearchSubmit={this.handleSearchSubmit}
-      />
-      <VacanciesTable
-        vacancies={this.props.vacancies}
       />
       </div>
     )

@@ -7,7 +7,8 @@ const Select = ({ options, value, onChange }) => (
       {options.map(item => (
           <option key={item.id}
                   value={item.id}
-                  label={item.name}>
+                  label={item.name}
+                  style={{backgroundColor: `#${item.hex_color}` || ''}}>
             {item.name}
           </option>
         ))

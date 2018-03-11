@@ -20,10 +20,26 @@ async function fetchMetroData() {
   )
 }
 
-async function fetchVacancyData({vacancyName, line, station}) {
-  const response = await fetch(
-    `${API_HH_URL}vacancies?metro=${station || line.id}&area=1&text=${vacancyName}`
-  )
+async function fetchVacancyData(payload) {
+  const {
+    vacancyName,
+    line,
+    station,
+    top_lat,
+    bottom_lat,
+    left_lng,
+    right_lng,
+  } = payload
+  const vacanciesUrl = `${API_HH_URL}vacancies?area=1&per_page=100`
+  const metroQuery = `&metro=${station || line.id}`
+  const topLatQuery = top_lat ? `&top_lat=${top_lat}` : ''
+  const bottomLatQuery = bottom_lat ? `&bottom_lat=${bottom_lat}` : ''
+  const leftLngQuery = left_lng ? `&left_lng=${left_lng}` : ''
+  const rightLngQuery = right_lng ? `&right_lng=${right_lng}` : ''
+  const vacancyTextQuery = `&text=${vacancyName || ''}`
+  const finalUrl = `${vacanciesUrl}${metroQuery}${topLatQuery}${bottomLatQuery}${leftLngQuery}${rightLngQuery}${vacancyTextQuery}`
+  const response = await fetch(finalUrl)
+
   const data = await response.json()
   if (response.status === 200) {
     const dataMap = {}

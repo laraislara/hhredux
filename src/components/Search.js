@@ -7,10 +7,10 @@ import { Select } from 'components'
 
 // const Intro = styled.p`font-size: large;`
 
-class Search extends React.Component {
+export class Search extends React.Component {
   static propTypes = {
     metroStationValue: PropTypes.string.isRequired,
-    selectedLine: PropTypes.objectOf(PropTypes.string).isRequired,
+    selectedLine: PropTypes.objectOf(PropTypes.any).isRequired,
     metroStations: PropTypes.objectOf(PropTypes.any).isRequired,
     changeMetroLine: PropTypes.func.isRequired,
     onSearchSubmit: PropTypes.func.isRequired,
@@ -40,7 +40,7 @@ class Search extends React.Component {
                     options={Object.values(metroStations.data).map(el => ({
                       id: el.id,
                       name: el.name,
-                      color: el.hex_color,
+                      hex_color: el.hex_color,
                     }))}/>
           }
           {selectedLine.id && <Select onChange={changeMetroStation}

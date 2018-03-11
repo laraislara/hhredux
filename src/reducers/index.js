@@ -4,7 +4,9 @@ import {
   metroStations,
   selectedLine,
   vacancies,
+  vacancyName,
 } from './search'
+import { mapState } from './maps'
 
 
 const rootReducer = combineReducers({
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
   metroStations,
   selectedLine,
   vacancies,
+  vacancyName,
+  mapState,
 })
 
 export default rootReducer
