@@ -9,7 +9,7 @@ import { Select } from 'components'
 
 class Search extends React.Component {
   static propTypes = {
-    metroStationName: PropTypes.string.isRequired,
+    metroStationValue: PropTypes.string.isRequired,
     selectedLine: PropTypes.objectOf(PropTypes.string).isRequired,
     metroStations: PropTypes.objectOf(PropTypes.any).isRequired,
     changeMetroLine: PropTypes.func.isRequired,
@@ -26,7 +26,7 @@ class Search extends React.Component {
   render () {
     const {
       selectedLine,
-      metroStationName,
+      metroStationValue,
       metroStations,
       changeMetroLine,
       changeMetroStation,
@@ -44,7 +44,7 @@ class Search extends React.Component {
                     }))}/>
           }
           {selectedLine.id && <Select onChange={changeMetroStation}
-                  value={metroStationName}
+                  value={metroStationValue}
                   options={metroStations.data[selectedLine.id].stations.map(el => ({
                     id: el.id,
                     name: el.name,

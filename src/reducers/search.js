@@ -14,13 +14,14 @@ import {
 } from 'initialStates'
 import { fromJS } from 'immutable'
 
+const initialMetroStationValue = ''
 
-const initialMetroStationName = ''
-
-export const metroStationName = (state = initialMetroStationName, action) => {
+export const metroStationValue = (state = initialMetroStationValue, action) => {
   switch (action.type) {
     case CHANGE_METRO_STATION:
       return action.payload
+    case METRO_FETCH_SUCCEEDED:
+      return action.payload['1'].stations[0].id
     default:
       return state
   }
@@ -82,3 +83,5 @@ export const vacancies = (state = initialVacancies, action) => {
       return state
   }
 }
+
+// redux-actions -- handleAction ?

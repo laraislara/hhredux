@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import {
-  metroStationName,
+  metroStationValue,
   metroStations,
   selectedLine,
   vacancies,
@@ -8,7 +8,7 @@ import {
 
 
 const rootReducer = combineReducers({
-  metroStationName,
+  metroStationValue,
   metroStations,
   selectedLine,
   vacancies,

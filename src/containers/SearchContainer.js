@@ -10,7 +10,7 @@ import * as SearchActions from 'actions/search'
 class SearchContainer extends React.Component {
   static propTypes = {
     vacancyName: PropTypes.string.isRequired,
-    metroStationName: PropTypes.string.isRequired,
+    metroStationValue: PropTypes.string.isRequired,
     selectedLine: PropTypes.objectOf(PropTypes.string).isRequired,
     metroStations: PropTypes.objectOf(PropTypes.PropTypes.any).isRequired,
     vacancies: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -37,7 +37,7 @@ class SearchContainer extends React.Component {
     this.props.fetchVacancies({
       vacancyName: value,
       line: this.props.selectedLine,
-      station: this.props.metroStationName,
+      station: this.props.metroStationValue,
     })
   }
 
@@ -47,7 +47,7 @@ class SearchContainer extends React.Component {
       <Search
         vacancyName={this.props.vacancyName}
         metroStations={this.props.metroStations}
-        metroStationName={this.props.metroStationName}
+        metroStationValue={this.props.metroStationValue}
         selectedLine={this.props.selectedLine}
         changeMetroLine={this.changeMetroLine}
         changeMetroStation={this.changeMetroStation}
@@ -70,9 +70,9 @@ const mapStateToProps = createStructuredSelector({
     (state) => state.selectedLine,
     (selectedLineState) => selectedLineState
   ),
-   metroStationName: createSelector(
-    (state) => state.metroStationName,
-    (metroStationNameState) => metroStationNameState
+   metroStationValue: createSelector(
+    (state) => state.metroStationValue,
+    (metroStationValueState) => metroStationValueState
   ),
   metroStations: createSelector(
     (state) => state.metroStations,
