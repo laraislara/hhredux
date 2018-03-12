@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Search, VacanciesTable } from 'components'
+import { Search } from 'components'
 import { createStructuredSelector, createSelector } from 'reselect'
 
 import { bindActionCreators } from 'redux'
@@ -13,7 +13,6 @@ export class SearchContainer extends React.Component {
     metroStationValue: PropTypes.string.isRequired,
     selectedLine: PropTypes.objectOf(PropTypes.any).isRequired,
     metroStations: PropTypes.objectOf(PropTypes.any).isRequired,
-    vacancies: PropTypes.objectOf(PropTypes.any).isRequired,
     changeMetroLine: PropTypes.func.isRequired,
     changeMetroStation: PropTypes.func.isRequired,
     fetchMetroStations: PropTypes.func.isRequired,
@@ -74,10 +73,6 @@ const mapStateToProps = createStructuredSelector({
   metroStations: createSelector(
     (state) => state.metroStations,
     (metroStationsState) => metroStationsState,
-  ),
-  vacancies: createSelector(
-    (state) => state.vacancies,
-    (vacanciesState) => vacanciesState,
   ),
 })
 

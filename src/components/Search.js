@@ -2,10 +2,41 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { Select } from 'components'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
-// import styled from 'styled-components'
-
-// const Intro = styled.p`font-size: large;`
+const Intro = styled.form`
+  margin-bottom: 40px;
+  height: 30px;
+  
+  select {
+    height: 25px;
+    width: 300px;
+    font-size: 15px;
+    margin: 10px;
+    padding-left: 10px;
+  }
+  
+  input {
+    height: 20px;
+    width: 200px;
+    font-size: 15px;
+    margin: 10px;
+    padding-left: 10px;
+  }
+  
+  button {
+    height: 30px;
+    width: 65px;
+    font-size: 15px;
+    border-radius: 5px;
+    margin: 10px;
+  }
+  
+  button:hover {
+    cursor: pointer;
+  }
+`
 
 export class Search extends React.Component {
   static propTypes = {
@@ -32,6 +63,7 @@ export class Search extends React.Component {
       changeMetroStation,
     } = this.props
     return (
+      <Intro>
       <section>
         <form onSubmit={this.onSearchSubmit}>
           {metroStations.isLoaded &&
@@ -50,10 +82,12 @@ export class Search extends React.Component {
                     name: el.name,
                   }))}
           />}
-          <input ref={(input) => {this.searchValue = input}}/>
+          <input ref={(input) => {this.searchValue = input}} placeholder='Я ищу...'/>
           <button type='submit'>Поиск</button>
+      {/*  <Link to='/map'>55</Link>*/}
         </form>
       </section>
+      </Intro>
     )
   }
 }

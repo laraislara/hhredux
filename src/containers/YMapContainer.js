@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-// import { throttle } from 'lodash'
 import { createStructuredSelector, createSelector } from 'reselect'
-
 import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
 
 import { bindActionCreators } from 'redux'
@@ -104,7 +102,7 @@ const mapStateToProps = createStructuredSelector({
               properties: {
                 balloonContentHeader: el.name,
                 balloonContentBody: el.employer.name,
-                balloonContentFooter: el.salary ? `${el.salary.from} ${el.salary.to}` : 'Не указана',
+                balloonContentFooter: el.salary ?`${el.salary.from ? el.salary.from : 'Не указано'} - ${el.salary.to ? el.salary.to : 'Не указано'}` : '',
                 clusterCaption: el.name,
                 hintContent: el.name,
               },

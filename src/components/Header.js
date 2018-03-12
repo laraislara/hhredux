@@ -1,35 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from 'assets/logo.svg'
-import styled, { keyframes } from 'styled-components'
-
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`
+import styled from 'styled-components'
 
 const TopBar = styled.div`
-  height: 45px;
   padding: 20px;
-  color: #fff;
-
-  .redux-logo {
-    animation: ${rotate360} infinite 20s linear;
-    height: 12px;
+  font-size: 20px; 
+`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  margin: 40px;
+  color: black;
+  
+  &:hover {
+    color: blue;
   }
 `
 
+const Description = () => (
+      <p>Для поиска вакансий на карте выберите ветку метро, станцию и введите должность</p>
+)
+
 const Header = () => (
-  <TopBar>
-    <img src={logo} className="redux-logo" alt="logo" />
-    <Link to="/">Главная</Link>
-    <Link to="/map">Карта</Link>
-    <Link to="/vacancies">Вакансии</Link>
-  </TopBar>
+    <div>
+      <TopBar>
+        <StyledLink to="/">Главная</StyledLink>
+        <StyledLink to="/map">Карта</StyledLink>
+        <StyledLink to="/vacancies">Вакансии</StyledLink>
+      </TopBar>
+      <Description/>
+    </div>
+
 )
 
 export default Header

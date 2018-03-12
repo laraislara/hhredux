@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header } from 'components'
+import { Header, VacancyCard } from 'components'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { SearchContainer, YMapContainer, VacanciesTableContainer } from 'containers'
 
@@ -14,7 +14,7 @@ const Routes = () => (
         <Route path="/" component={SearchContainer} />
         <Route path="/map" component={YMapContainer} />
         <Route path="/vacancies" component={VacanciesTableContainer} />
-        {/*<Footer />*/}
+        <Route path="/vacancies/:id" component={VacancyCard} />
       </Container>
     </Router>
   )
