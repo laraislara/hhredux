@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
 const Select = ({ options, value, onChange }) => (
-    <select value={value} onChange={onChange}>
+    <select value={value || '0'} onChange={onChange} >
+      <option value='0' disabled>Выберите станцию</option>
       {options.map(item => (
           <option key={item.id}
                   value={item.id}
@@ -11,6 +12,7 @@ const Select = ({ options, value, onChange }) => (
                   style={{backgroundColor: `#${item.hex_color}` || ''}}>
             {item.name}
           </option>
+
         ))
       }
     </select>

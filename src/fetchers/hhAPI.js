@@ -10,6 +10,7 @@ async function fetchMetroData() {
     for (const el of data.lines) {
       // каждый объект присваиваем к id
       // (который берем из самого объекта)
+      // всегда делать маппинг из массива
       linesMap[el.id] = el
     }
     return linesMap
@@ -44,6 +45,8 @@ async function fetchVacancyData(payload) {
   if (response.status === 200) {
     const dataMap = {}
     for (const el of data.items) {
+      // возращает объект, у которого id - это ключ,
+      // а значение это вакансия-объект
       dataMap[el.id] = el
     }
     return {

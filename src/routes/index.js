@@ -13,7 +13,7 @@ const Routes = () => (
         <Header />
         <Route path="/" component={SearchContainer} />
         <Route path="/map" component={YMapContainer} />
-        <Route path="/vacancies" component={VacanciesTableContainer} />
+        <Route exact path="/vacancies" component={VacanciesTableContainer} />
         <Route path="/vacancies/:id" component={VacancyCard} />
       </Container>
     </Router>

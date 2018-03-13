@@ -10,3 +10,10 @@ export const changeMetroStation = createAction(CHANGE_METRO_STATION)
 export const changeMetroLine = createAction(CHANGE_METRO_LINE)
 export const fetchMetroStations = createAction(METRO_FETCH_REQUESTED)
 export const fetchVacancies = createAction(VACANCIES_FETCH_REQUESTED)
+
+/*export const fetchVacancies = function fetchVacancies(payload) {
+  return {
+    type: VACANCIES_FETCH_REQUESTED,
+    payload: payload,
+  }
+}*/

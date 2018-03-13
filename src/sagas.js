@@ -13,8 +13,8 @@ import {fetchMetroData, fetchVacancyData} from 'fetchers'
 function* fetchMetroStations() {
    try {
       const payload = yield call(fetchMetroData)
-      // вызов метода METRO_FETCH_SUCCEEDED и передача LinesMap в payload
-      yield put({type: METRO_FETCH_SUCCEEDED, payload})
+      // вызов action METRO_FETCH_SUCCEEDED и передача linesMap в payload
+      yield put({type: METRO_FETCH_SUCCEEDED, payload: payload})
    } catch (e) {
       yield put({type: METRO_FETCH_FAILED, message: e.message})
    }
@@ -22,11 +22,13 @@ function* fetchMetroStations() {
 
 // watcher
 function* metroSaga() {
+  // отслеживает,то что action был создан.
+  // takeLatest - обработа только последнего события. Можно было takeEvery
   yield takeLatest(METRO_FETCH_REQUESTED, fetchMetroStations)
 }
 
 // vacancies API worker
-function * fetchVacancies(action) {
+function* fetchVacancies(action) {
   try {
     const payload = yield call(fetchVacancyData, action.payload)
     yield put({type: VACANCIES_FETCH_SUCCEEDED, payload})

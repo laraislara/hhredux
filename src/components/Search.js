@@ -44,14 +44,20 @@ export class Search extends React.Component {
     selectedLine: PropTypes.objectOf(PropTypes.any).isRequired,
     metroStations: PropTypes.objectOf(PropTypes.any).isRequired,
     changeMetroLine: PropTypes.func.isRequired,
-    onSearchSubmit: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
     changeMetroStation: PropTypes.func.isRequired,
   }
 
-  onSearchSubmit = event => {
-    event.preventDefault()
+  onSearch = () => {
     const {value} = this.searchValue
-    this.props.onSearchSubmit(value)
+    this.props.onSearch(value)
+  }
+
+  onKeyDown = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      this.onSearch()
+    }
   }
 
   render () {
@@ -65,27 +71,32 @@ export class Search extends React.Component {
     return (
       <Intro>
       <section>
-        <form onSubmit={this.onSearchSubmit}>
-          {metroStations.isLoaded &&
-            <Select onChange={changeMetroLine}
-                    value={selectedLine.id}
-                    options={Object.values(metroStations.data).map(el => ({
-                      id: el.id,
-                      name: el.name,
-                      hex_color: el.hex_color,
-                    }))}/>
-          }
-          {selectedLine.id && <Select onChange={changeMetroStation}
+        {
+          metroStations.isLoaded &&
+          <Select onChange={changeMetroLine}
+                  value={selectedLine.id}
+                  options={Object.values(metroStations.data).map(el => ({
+                    id: el.id,
+                    name: el.name,
+                    hex_color: el.hex_color,
+                  }))}
+          />
+        }
+        {
+          selectedLine.id &&
+          <Select onChange={changeMetroStation}
                   value={metroStationValue}
                   options={metroStations.data[selectedLine.id].stations.map(el => ({
                     id: el.id,
                     name: el.name,
                   }))}
-          />}
-          <input ref={(input) => {this.searchValue = input}} placeholder='Я ищу...'/>
-          <button type='submit'>Поиск</button>
-      {/*  <Link to='/map'>55</Link>*/}
-        </form>
+          />
+        }
+        <input ref={(input) => {this.searchValue = input}}
+               onKeyDown={this.onKeyDown}
+               placeholder='Я ищу...'
+        />
+        <Link to='/vacancies' onClick={this.onSearch}>Поиск</Link>
       </section>
       </Intro>
     )

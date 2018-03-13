@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { createStructuredSelector, createSelector } from 'reselect'
 import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
+// import { Link } from 'react-router-dom'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -31,6 +32,7 @@ export class YMapContainer extends React.Component {
       center,
       zoom,
     })
+    // аргумент пойдет в payload
     this.props.fetchVacancies({
       vacancyName: this.props.vacancyName,
       line: this.props.selectedLine,

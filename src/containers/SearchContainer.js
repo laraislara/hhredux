@@ -31,7 +31,7 @@ export class SearchContainer extends React.Component {
   changeMetroStation = event => {
     this.props.changeMetroStation(event.target.value)
   }
-  handleSearchSubmit = (value) => {
+  handleSearch = (value) => {
     // агрументы пойдут в action.payload
     this.props.fetchVacancies({
       vacancyName: value,
@@ -50,7 +50,7 @@ export class SearchContainer extends React.Component {
         selectedLine={this.props.selectedLine}
         changeMetroLine={this.changeMetroLine}
         changeMetroStation={this.changeMetroStation}
-        onSearchSubmit={this.handleSearchSubmit}
+        onSearch={this.handleSearch}
       />
       </div>
     )
@@ -76,8 +76,9 @@ const mapStateToProps = createStructuredSelector({
   ),
 })
 
+// дает возможность обратиться к action через this.props
 const mapDispatchToProps = dispatch => (
   bindActionCreators(SearchActions, dispatch)
 )
-
+// связывает реакт и редакс
 export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer)

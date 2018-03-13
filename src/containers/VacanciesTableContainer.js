@@ -4,7 +4,6 @@ import { createStructuredSelector, createSelector } from 'reselect'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { VacancyCard } from 'components'
 
 const Table = styled.table`
   width: 80%;
@@ -31,7 +30,6 @@ const VacanciesTableContainer = (props) => {
   if (isLoaded) {
     return (
       <Table>
-        <table>
           <thead>
             <tr>
               <td>Должность</td>
@@ -52,7 +50,6 @@ const VacanciesTableContainer = (props) => {
             </tr>
           ))}
           </tbody>
-        </table>
       </Table>
     )
   }

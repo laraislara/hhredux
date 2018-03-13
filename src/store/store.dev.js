@@ -5,12 +5,13 @@ import rootReducer from 'reducers'
 import rootSaga from 'sagas'
 
 export default function configureStore(initialState = {}) {
+  // добавить сагу промежуточным звеном между экшеном и редьюсером
   const sagaMiddleware = createSagaMiddleware()
 
   const middlewares = [sagaMiddleware]
   const enhancers = [
     applyMiddleware(...middlewares),
-    // other store enhancers if any
+    // применяет мидлвеары
   ]
   const composeEnhancers = composeWithDevTools(
     {
@@ -19,7 +20,7 @@ export default function configureStore(initialState = {}) {
     }
   )
   const store = createStore(rootReducer, initialState, composeEnhancers(...enhancers))
-  sagaMiddleware.run(rootSaga)
+  sagaMiddleware.run(rootSaga)  // запуск
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
